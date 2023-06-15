@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Specialty;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SpecialtyController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
+
+
+
 
     public function index( Request $request){
-        
+
         $search = $request->input('search');
         if ($search) {
         $specialties = Specialty::where('name', 'LIKE', '%' . $search . '%')
@@ -22,7 +23,7 @@ class SpecialtyController extends Controller
         ->paginate(10);
     } else {
         $specialties = Specialty::paginate(10);
-      
+
     }
 
         return view('specialties.index',compact('specialties'));
@@ -46,7 +47,7 @@ class SpecialtyController extends Controller
             'name.min' => 'El nombre de la especilidad debe tener más de 3 caracteres'
         ];
 
-    
+
         $this-> validate($request, $rules, $messages);
 
         $specialty = new Specialty();
@@ -78,7 +79,7 @@ class SpecialtyController extends Controller
             'name.min' => 'El nombre de la especialidad debe tener más de 3 caracteres'
         ];
 
-    
+
         $this-> validate($request, $rules, $messages);
 
         $specialty->name = $request -> input('name');

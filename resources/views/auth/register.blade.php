@@ -56,7 +56,7 @@
                                         </script>
                                         {{-- @else
                                     <div class="card-header">
-                                        {{-- <h4 class="font-weight-bolder">Iniciar Sesion</h4> 
+                                        {{-- <h4 class="font-weight-bolder">Iniciar Sesion</h4>
                                         <p class="mb-0">Ingresa tus datos</p>
                                     </div> --}}
                                     @endif
@@ -137,7 +137,7 @@
                                         <a href="#" class="nav-link text-white" target="_blank">About Us</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href=="#" class="nav-link text-white" target="_blank">Blog</a>
+                                        <a href="#" class="nav-link text-white" target="_blank">Blog</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#" class="nav-link pe-0 text-white" target="_blank">License</a>

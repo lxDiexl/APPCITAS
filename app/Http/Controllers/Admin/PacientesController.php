@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Controllers\Controller;
 
 
 class PacientesController extends Controller
@@ -28,7 +29,7 @@ class PacientesController extends Controller
         }
         return view('clientes.index', compact('clientes'));
     }
-  
+
     public function create()
     {
         return view('clientes.create');

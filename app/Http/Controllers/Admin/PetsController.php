@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Pets;
 use App\Models\User;
+use App\Http\Controllers\Controller;
 
 class PetsController extends Controller
 {
@@ -76,7 +77,7 @@ class PetsController extends Controller
             'tamaño.min' => 'El tamaño de la mascota debe tener más de 3 caracteres',
             'peso.required' => 'El peso de la mascota es obligatorio',
             'peso.numeric' => 'Debe ingresar solo numero [0-9]',
-            'id_user.required' => 'El nombre del médico es obligatorio',
+            'id_user.required' => 'El nombre del propietario es obligatorio',
             'id_user.numeric' => 'Debe ingresar solo numero [0-9]'
 
 

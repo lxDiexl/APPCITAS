@@ -22,6 +22,9 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('css/material-dashboard.css?v=3.0.0') }}" rel="stylesheet" />
 
+    @yield('scripts')
+
+
 
 </head>
 
@@ -64,15 +67,15 @@
                     </div>
                     <ul class="navbar-nav align-items-center d-none d-md-flex">
                       <span class="avatar avatar-sm rounded-circle ">
-                        <img alt="Image placeholder" src="{{ asset('img/ivana-square.jpg') }}"> 
+                        <img alt="Image placeholder" src="{{ asset('img/ivana-square.jpg') }}">
                       </span>
                         <li class="nav-item dropdown">
-                          
+
                             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <div class="media align-items-center">
                                     <div class="media-body ml-2 d-none d-lg-block">
-                                        
+
                                         <span class="mb-0 text-sm font-weight-bold" style="text-align:center;">{{ auth()->user()->name }} {{ auth()->user()->lastname }}</span>
                                     </div>
                                 </div>

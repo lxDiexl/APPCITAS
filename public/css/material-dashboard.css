@@ -13979,8 +13979,8 @@ label,
   background-image: linear-gradient(195deg, #EBEFF4 0%, #CED4DA 100%); }
 
 .bg-gradient-dark {
-  /* background-image: linear-gradient(195deg, #42424a 0%, #191919 100%);*/ 
-  background-image: linear-gradient(195deg, #B888EE 0%, #4E03A3 100%); };
+  /* background-image: linear-gradient(195deg, #42424a 0%, #191919 100%);*/
+  background-image: linear-gradient(195deg, #353434 0%, #050505 100%); };
 .bg-gradient-faded-primary {
   background-image: radial-gradient(370px circle at 80% 50%, rgba(233, 30, 99, 0.6) 0, #c1134e 100%); }
 

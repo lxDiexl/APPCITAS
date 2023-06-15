@@ -1,0 +1,363 @@
+<?php
+use Illuminate\Support\Str;
+
+?>
+
+@extends('layouts.panel')
+
+@section('content')
+    <div class="row mb-4">
+        <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
+            <div class="card">
+                <div class="card-header pb-0">
+                    <div class="row">
+                        <div class="col-lg-6 col-7">
+                            <h3 style="letter-spacing: 3px;">Registrar Nueva Cita ♥</h3>
+
+                        </div>
+                        {{-- <div class="col-lg-6 col-5 my-auto text-end">
+                            <div class="dropdown float-lg-end pe-4">
+                                <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="fa fa-ellipsis-v text-secondary"></i>
+                                </a>
+                                <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
+                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
+                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a>
+                                    </li>
+                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else
+                                            here</a></li>
+                                </ul>
+                            </div>
+                        </div> --}}
+                        <div class="col-lg-6 col-5 my-auto text-end">
+                            <a href="{{ url('/clientes') }}" class="btn btn-sm btn-info"><i
+                                    class="fas fa-arrow-alt-circle-left" style="font-size:15px;"></i> Regresar</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+                <script>
+                    $(function() {
+                        $(".datepicker").datepicker();
+                    });
+                </script>
+
+                <script>
+                    let $doctor;
+
+
+                    $(function() {
+                        const $specialty = $('#specialty');
+                        $doctor = $('#doctor')
+                        $specialty.change(() => {
+                            const specialtyId = $specialty.val();
+                            const url = `/especialidades/${specialtyId}/medicos`;
+                            $.getJSON(url, onDoctorsLoaded);
+                        });
+                    });
+
+                    function onDoctorsLoaded(doctors) {
+                        let htmlOptions = '';
+                        doctors.forEach(doctor => {
+                            htmlOptions += `<option value="${doctor.id}">${doctor.name}</option>`;
+                        });
+                        $doctor.html(htmlOptions);
+                    }
+
+                    let $date;
+
+                    $(function() {
+                        $doctor = $("#doctor");
+                        $date = $('#date');
+
+
+                        $doctor.change(loadHours);
+                        $date.change(loadHours);
+
+                    });
+
+                    function loadHours() {
+                        const selectedDate = $date.val();
+                        const doctorId = $doctor.val();
+                        console.log("selectedDate:", selectedDate);
+                        console.log("doctorId:", doctorId);
+
+                        const url = `/horario/horas?date=${selectedDate}&doctor_id=${doctorId}`;
+
+                        $.getJSON(url, displayHours);
+                    }
+
+                    let $hoursMorning, $hoursAfternoon, $titleMorning, $titleAfternoon;
+
+                    const titleMorning = `En la mañana`;
+                    const titleAfternoon = `En la tarde`;
+
+                    const noHours = `<h5 class="text-danger">No hay horarios disponibles</h5>`
+                    $(function() {
+                        $titleMorning = $('#titleMorning');
+                        $hoursMorning = $('#hoursMorning');
+                        $titleAfternoon = $('#titleAfternoon');
+                        $hoursAfternoon = $('#hoursAfternoon');
+                    });
+
+
+                    function displayHours(data) {
+                        let htmlHoursM = '';
+                        let htmlHoursA = '';
+
+                        if (data.morning) {
+                            const morning_invervalos = data.morning;
+                            morning_invervalos.forEach(intervalo => {
+                                htmlHoursM += getRadioIntervaloHTML(intervalo);
+                            });
+                        }
+                        if (!htmlHoursM != "") {
+                            htmlHoursM += noHours;
+                        }
+
+                        if (data.afternoon) {
+                            const afternoon_invervalos = data.afternoon;
+                            afternoon_invervalos.forEach(intervalo => {
+                                htmlHoursA += getRadioIntervaloHTML(intervalo);
+                            });
+                        }
+
+                        if (!htmlHoursA != "") {
+                            htmlHoursA += noHours;
+                        }
+
+                        $hoursMorning.html(htmlHoursM);
+                        $hoursAfternoon.html(htmlHoursA);
+                        $titleMorning.html(titleMorning);
+                        $titleAfternoon.html(titleAfternoon);
+
+                    }
+
+
+                    let iRadio = 0; // Inicialización de iRadio
+
+                    function getRadioIntervaloHTML(intervalo) {
+                        const text = `${intervalo.start} - ${intervalo.end}`;
+
+                        return `<div class="form-check " >
+  <input class="form-check-input" type="radio" name="scheduled_time" id="interval${iRadio}" value="${intervalo.start}" >
+  <label class="form-check-label" for="interval${iRadio++}" style="display: inline-block; margin-left: 10px;">
+    ${text}
+  </label>
+</div>`;
+                    }
+
+                    var secondValue = document.getElementById("second-value").value;
+// Utiliza el segundo valor según tus necesidades
+
+                    // Llamada a la función getRadioIntervaloHTML() u otras operaciones donde se utiliza iRadio
+                </script>
+
+                <style>
+                    [type="date"] {
+                        background: #fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png) 97% 50% no-repeat;
+                    }
+
+                    [type="date"]::-webkit-inner-spin-button {
+                        display: none;
+                    }
+
+                    [type="date"]::-webkit-calendar-picker-indicator {
+                        opacity: 0;
+                    }
+
+                    /* custom styles */
+
+                    label {
+                        display: block;
+                    }
+
+                    input {
+                        border: 1px solid #c4c4c4;
+                        border-radius: 5px;
+                        background-color: #fff;
+                        padding: 3px 5px;
+                        box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+                        width: 190px;
+                    }
+                </style>
+
+                <div class="card-body">
+
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger" role="alert" style="color:white;">
+                                <i style="color:white;" class="fas fa-exclamation-triangle"></i>
+                                <strong style="color:white;">Por favor!</strong> {{ $error }}
+                            </div>
+                        @endforeach
+                    @endif
+                    <form action="{{ url('/reservarcitas') }}" method="POST" class="form"
+                        style="display:flex; flex-direction:column;">
+                        @csrf
+
+                            <div class="row ">
+                                <div class="form-group col-md-6">
+                                    <label for="specialty">Especialidad / Servicio</label>
+                                    <select
+                                        style="padding: 0.5rem;
+                                    border-radius: 0.25rem;
+                                    border: 1px solid #ced4da;
+                                    background-color: #fff;
+                                    width: 100%;
+                                    font-size: 1rem;
+                                    line-height: 1.5;
+                                    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
+                                        name="specialty_id" id="specialty" class="form-control">
+                                        <option value="">Seleccionar Campo</option>
+                                        @foreach ($specialties as $especialidad)
+                                            <option value="{{ $especialidad->id }}"
+                                                @if(old('specialty_id')==$especialidad->id) selected @endif>
+                                                {{ $especialidad->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="doctor">Veterinario</label>
+                                    <select
+                                        style="padding: 0.5rem;
+                                    border-radius: 0.25rem;
+                                    border: 1px solid #ced4da;
+                                    background-color: #fff;
+                                    width: 100%;
+                                    font-size: 1rem;
+                                    line-height: 1.5;
+                                    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
+                                        name="doctor_id" id="doctor" class="form-control" required>
+                                        @foreach ($doctors as $doctor)
+                                        <option value="{{ $doctor->id }}"
+                                            @if(old('doctor_id')==$doctor->id) selected @endif>
+                                            {{ $doctor->name }}</option>
+                                    @endforeach</select>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        <div class="form-group">
+                            <label for="date">Fecha</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input placeholder="Seleccionar Fecha" type="date" name="scheduled_date" id="date"
+                                    value="{{ old('scheduled_date') ? old('scheduled_date') : date('Y-m-d') }}" data-date-format="yyyy-mm-dd"
+                                        data-date-start-date="{{ date('Y-m-d') }}" data-date-end-date="+30d"
+                                        style="color:black;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="form-group" >
+                            <label for="hours">Hora de atención</label>
+
+                            <div class="row" style="background:#D2EFE3; border-radius:20px;">
+                                <div class="col">
+                                    <h4 class="m-3" id="titleMorning"></h4>
+                                    <div id="hoursMorning">
+                                        @if($intervals)
+                                        <h4 class="m-3">En la mañana</h4>
+                                            @foreach ( $intervals ['morning'] as $key =>$interval )
+                                            <div class="form-check " >
+                                                <input class="form-check-input" type="radio" name="scheduled_time" id="intervalMorning{{$key}}" value="{{$interval['start']}}" >
+                                                <label class="form-check-label" for="intervalMorning{{$key}}" style="display: inline-block; margin-left: 10px;">
+                                                 {{$interval['start']}} - {{$interval['end']}}
+                                                </label>
+                                              </div>
+                                            @endforeach
+                                        @else
+                                        <mark style="background:#D2EFE3; border-radius:20px;">
+                                            <small class="text-warning display-15" >
+                                                Selecciona un médico para ver una fecha y hora.
+                                            </small>
+                                        </mark>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <h4 class="m-3" id="titleAfternoon"></h4>
+                                    <div id="hoursAfternoon" >
+
+                                        @if($intervals)
+                                        <h4 class="m-3">En la tarde</h4>
+                                            @foreach ( $intervals ['afternoon'] as $key =>$interval )
+                                            <div class="form-check " >
+                                                <input class="form-check-input" type="radio" name="scheduled_time" id="intervalAfternoon{{$key}}" value="{{$interval['start']}}" >
+                                                <label class="form-check-label" for="intervalAfternoon{{$key}}" style="display: inline-block; margin-left: 10px;">
+                                                 {{$interval['start']}} - {{$interval['end']}}
+                                                </label>
+                                              </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="type">Tipo de consulta</label>
+                            <div class="form-check ">
+                                <input class="form-check-input" type="radio" name="type" id="type1" @if(old('type')=='Consulta') checked @endif value="Consulta"
+                                >
+                                <label class="form-check-label" for="type1"
+                                    style="display: inline-block; margin-left: 10px;">
+                                    Consulta
+                                </label>
+                            </div>
+
+                            <div class="form-check ">
+                                <input class="form-check-input" type="radio" name="type" id="type2" @if(old('type')=='Examen') checked @endif value="Examen">
+                                <label class="form-check-label" for="type2"
+                                    style="display: inline-block; margin-left: 10px;">
+                                    Examen
+                                </label>
+                            </div>
+                            <div class="form-check ">
+                                <input class="form-check-input" type="radio" name="type" id="type3" @if(old('type')=='Operación') checked @endif value="Operación">
+                                <label class="form-check-label" for="type3"
+                                    style="display: inline-block; margin-left: 10px;">
+                                    Operación
+                                </label>
+                            </div>
+                            <div class="form-check ">
+                                <input class="form-check-input" type="radio" name="type" id="type4" @if(old('type')=='Baño') checked @endif value="Baño">
+                                <label class="form-check-label" for="type4"
+                                    style="display: inline-block; margin-left: 10px;">
+                                    Baño
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Síntomas</label>
+                           <textarea name="description" id="description" type="text" class="form-control" rows="5" placeholder="Descripción breve" style="border: 1px solid black"></textarea>
+                        </div>
+                </div>
+
+                <div class="d-flex justify-content-end" style="display: block;
+                        margin-top: 20px;">
+                    <button style="
+                                color: #fff;" type="submit"
+                        class="btn btn-primary">Guardar
+                        Cita</button>
+                </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    </div>
+@endsection

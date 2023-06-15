@@ -42,11 +42,11 @@ use Illuminate\Support\Str;
                         @foreach ($errors->all() as $error)
                             <div class="alert alert-danger" role="alert" style="color:white;">
                                 <i style="color:white;" class="fas fa-exclamation-triangle"></i>
-                                <strong style="color:white;">Por favor!</strong> {{$error}}
+                                <strong style="color:white;">Por favor!</strong> {{ $error }}
                             </div>
                         @endforeach
                     @endif
-                    <form action="{{ url('/medicos/'.$doctor->id) }}" method="POST" class="form"
+                    <form action="{{ url('/medicos/' . $doctor->id) }}" method="POST" class="form"
                         style="display:flex; flex-direction:column;">
                         @csrf
                         @method('PUT')
@@ -61,7 +61,7 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="name" class="form-control" value="{{old('name',$doctor->name)}}">
+                                type="text" name="name" class="form-control" value="{{ old('name', $doctor->name) }}">
                         </div>
                         <div class="form-group">
                             <label for="lastname">Apellidos</label>
@@ -74,8 +74,43 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="lastname" class="form-control" value="{{old('lastname',$doctor->lastname)}}">
+                                type="text" name="lastname" class="form-control"
+                                value="{{ old('lastname', $doctor->lastname) }}">
                         </div>
+                        <div class="form-group">
+
+
+                            <label for="specialties">Especialidades</label>
+
+                            <!--LINKS -->
+                            <link rel="stylesheet"
+                                href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+                            <link rel="stylesheet"
+                                href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+                            <!-- SCRIPTS -->
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+                            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+                            </script>
+                            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
+
+                            <script>
+                                $(document).ready(() => {
+                                    $('#specialties').selectpicker('val', @json($specialty_ids));
+                                });
+                            </script>
+
+
+                            <select name="specialties[]" id="specialties" class="form-control selectpicker"
+                                data-style="btn-dark" title="Seleccionar especialidades" multiple required>
+                                @foreach ($specialties as $especialidad)
+                                    <option value="{{ $especialidad->id }}">{{ $especialidad->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="form-group">
                             <label for="phone">Teléfono</label>
                             <input
@@ -87,7 +122,8 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="phone" class="form-control" value="{{old('phone',$doctor->phone)}}" minlength="9" maxlength="9">
+                                type="text" name="phone" class="form-control" value="{{ old('phone', $doctor->phone) }}"
+                                minlength="9" maxlength="9">
                         </div>
                         <div class="form-group">
                             <label for="location">Dirección</label>
@@ -100,7 +136,8 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="location" class="form-control" value="{{old('location',$doctor->location)}}">
+                                type="text" name="location" class="form-control"
+                                value="{{ old('location', $doctor->location) }}">
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
@@ -113,7 +150,8 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="email" name="email" class="form-control" value="{{old('email',$doctor->email)}}">
+                                type="email" name="email" class="form-control"
+                                value="{{ old('email', $doctor->email) }}">
                         </div>
                         <div class="form-group">
                             <label for="password">Contraseña</label>
@@ -127,7 +165,7 @@ use Illuminate\Support\Str;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
                                 type="text" name="password" class="form-control">
-                                <small class="text-warning">Solo llena el campo si desea cambiar la contraseña</small>
+                            <small class="text-warning">Solo llena el campo si desea cambiar la contraseña</small>
                         </div>
                         <div class="d-flex justify-content-end"
                             style="display: block;

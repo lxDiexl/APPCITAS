@@ -7,27 +7,7 @@
                 <div class="card-header pb-0">
                     <div class="row">
                         <div class="col-lg-6 col-7">
-                            <h2 style="letter-spacing: 3px;">MEDICOS</h2>
-
-                        </div>
-                        {{-- <div class="col-lg-6 col-5 my-auto text-end">
-                            <div class="dropdown float-lg-end pe-4">
-                                <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <i class="fa fa-ellipsis-v text-secondary"></i>
-                                </a>
-                                <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
-                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
-                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a>
-                                    </li>
-                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else
-                                            here</a></li>
-                                </ul>
-                            </div>
-                        </div> --}}
-                        <div class="col-lg-6 col-5 my-auto text-end">
-
-                            <a href="{{ url('/medicos/create') }}" class="button-85" role="button" style="color:white;">Nuevo medico</a>
+                            <h2 style="letter-spacing: 3px;">Mis Citas</h2>
 
                         </div>
                     </div>
@@ -199,96 +179,56 @@
                             0 0 100px rgb(76, 109, 142);
                     }
                 </style>
-
                 <div class="card-body">
                     @if (session('notification'))
                         <div class="alert alert-success" style="color:white;"role="alert">
                             {{ session('notification') }}
                         </div>
                     @endif
-                </div>
-                <form id="searchForm" action="{{ url('/medicos') }}" method="GET" style="margin-left: 30px;">
-                    <div class="d-flex justify-content-right h-100">
-                        <div class="searchbar">
-                            <input class="search_input" type="text" name="search" placeholder="Buscar Medicos">
-                            <button type="submit" class="search_icon"><i class="fas fa-search"></i></button>
+
+                    <div class="card-body px-0 pb-2">
+                        <div class="nav-wrapper">
+                            <ul class="nav nav-pills nav-fill flex-md-row" id="tabs-icons-text" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab"
+                                        href="#mis-citas" role="tab"
+                                        aria-selected="true"><i class="ni ni-calendar-grid-58 mr-2"></i> Mis citas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mb-sm-3 mb-md-0"  data-toggle="tab"
+                                        href="#citas-pendientes" role="tab"
+                                        aria-selected="false"><i class="ni ni-bell-55 mr-2"></i> Citas Pendientes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mb-sm-3 mb-md-0" data-toggle="tab"
+                                        href="#historial" role="tab"
+                                        aria-selected="false"><i class="ni ni-folder-17 mr-2"></i> Historial</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-
-                </form>
-                <div class="card-body px-0 pb-2">
-                    <div class="table-responsive">
-                        <table class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th
-                                        class="text-uppercase text-secondary text-center text-sm text-xxs font-weight-bolder  ">
-                                        ID</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
-                                        Nombres</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
-                                        Apellidos</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
-                                        Teléfono</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
-                                        Direccion</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
-                                        Email</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
-                                        Opciones</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($medicos as $medico)
-                                    <tr>
-                                        <td class="align-middle text-center text-sm" scope="row">
-                                            {{ $medico->id }}
-                                        </td>
-                                        <td scope="row" class="text-center">
-                                            {{ $medico->name }}
-                                        </td>
-                                        <td scope="row" class="text-center" >
-                                            {{ $medico->lastname }}
-                                        </td>
-                                        <td scope="row" class="text-center">
-                                            {{ $medico->phone }}
-                                        </td>
-                                        <td scope="row" class="text-center">
-                                            {{ $medico->location }}
-                                        </td>
-                                        <td scope="row" class="text-center">
-                                            {{ $medico->email }}
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-
-                                            <form action="{{ url('/medicos/' . $medico->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <a href="{{ url('/medicos/' . $medico->id . '/edit') }}"  class="shadow__btn2" style="color:white;"><i
-                                                    class='fas fa-edit' ></i></a>
-
-                                                    <button type="submit" class="shadow__btn" role="button"><i
-                                                        class='fas fa-trash-alt' style="font-size:20px; "></i></button>
-                                            </form>
-
-                                            </form>
-
-                                        </td>
-
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                </div>
+                <div class="card shadow">
                     <div class="card-body">
-                        {{$medicos->links()}}
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="mis-citas" role="tabpanel">
+                                @include('appointments.confirmed-appointments')
+                            </div>
+                            <div class="tab-pane fade" id="citas-pendientes" role="tabpanel">
+                                @include('appointments.pending-appointments')
+                            </div>
+                            <div class="tab-pane fade" id="historial" role="tabpanel">
+                                @include('appointments.old-appointments')
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <!-- Fonts -->
+
+
+                    {{-- <div class="card-body">
+                        {{ $clientes->links() }}
+                    </div> --}}
                 </div>
             </div>
         </div>

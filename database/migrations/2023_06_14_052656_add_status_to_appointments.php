@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('specialties', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->timestamps();
+        Schema::table('appointments', function (Blueprint $table) {
+
+            $table->string ('status')->default(('Reservada'));
+            //
         });
     }
 
@@ -24,6 +23,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('specialties');
+        Schema::table('appointments', function (Blueprint $table) {
+
+            $table->dropColumn(('status'));
+        });
     }
 };

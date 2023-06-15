@@ -42,13 +42,13 @@ use App\Models\User;
                         margin-bottom: auto;
                         margin-top: auto;
                         height: 60px;
-                        background-color: #d2bceb;
+                        background-color: #353434;
                         border-radius: 30px;
                         padding: 10px;
                     }
 
                     .search_input {
-                        color: black;
+                        color: white;
                         border: 0;
                         outline: 0;
                         background: none;
@@ -61,13 +61,13 @@ use App\Models\User;
                     .searchbar:hover>.search_input {
                         padding: 0 10px;
                         width: 450px;
-                        caret-color: red;
+
                         transition: width 0.4s linear;
                     }
 
                     .searchbar:hover>.search_icon {
                         background: white;
-                        color: #e74c3c;
+
                     }
 
                     .search_icon {
@@ -83,7 +83,124 @@ use App\Models\User;
                     }
 
                     ::placeholder {
-                        color: black;
+                        color: white;
+                    }
+
+                    .button-85 {
+                        padding: 0.6em 2em;
+                        border: none;
+                        outline: none;
+                        color: rgb(255, 255, 255);
+                        background: #111;
+                        cursor: pointer;
+                        position: relative;
+                        z-index: 0;
+                        border-radius: 10px;
+                        user-select: none;
+                        -webkit-user-select: none;
+                        touch-action: manipulation;
+                    }
+
+                    .button-85:before {
+                        content: "";
+                        background: linear-gradient(45deg,
+                                #ff0000,
+                                #ff7300,
+                                #fffb00,
+                                #48ff00,
+                                #00ffd5,
+                                #002bff,
+                                #7a00ff,
+                                #ff00c8,
+                                #ff0000);
+                        position: absolute;
+                        top: -2px;
+                        left: -2px;
+                        background-size: 400%;
+                        z-index: -1;
+                        filter: blur(5px);
+                        -webkit-filter: blur(5px);
+                        width: calc(100% + 4px);
+                        height: calc(100% + 4px);
+                        animation: glowing-button-85 20s linear infinite;
+                        transition: opacity 0.3s ease-in-out;
+                        border-radius: 10px;
+                    }
+
+                    @keyframes glowing-button-85 {
+                        0% {
+                            background-position: 0 0;
+                        }
+
+                        50% {
+                            background-position: 400% 0;
+                        }
+
+                        100% {
+                            background-position: 0 0;
+                        }
+                    }
+
+                    .button-85:after {
+                        z-index: -1;
+                        content: "";
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        background: #222;
+                        left: 0;
+                        top: 0;
+                        border-radius: 10px;
+                    }
+
+                    .shadow__btn {
+                        padding: 10px 20px;
+                        border: none;
+                        font-size: 17px;
+                        color: #fff;
+                        border-radius: 7px;
+                        letter-spacing: 4px;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        transition: 0.5s;
+                        transition-property: box-shadow;
+                    }
+
+                    .shadow__btn {
+                        background: rgb(191, 42, 42);
+                        box-shadow: 0 0 25px rgb(191, 42, 42);
+                    }
+
+                    .shadow__btn:hover {
+                        box-shadow: 0 0 5px rgb(191, 42, 42),
+                            0 0 25px rgb(191, 42, 42),
+                            0 0 50px rgb(191, 42, 42),
+                            0 0 100px rgb(191, 42, 42);
+                    }
+
+                    .shadow__btn2 {
+                        padding: 12px 20px;
+                        border: none;
+                        font-size: 17px;
+                        color: #fff;
+                        border-radius: 7px;
+                        letter-spacing: 4px;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        transition: 0.5s;
+                        transition-property: box-shadow;
+                    }
+
+                    .shadow__btn2 {
+                        background: rgb(76, 109, 142);
+                        box-shadow: 0 0 25px rgb(76, 109, 142);
+                    }
+
+                    .shadow__btn2:hover {
+                        box-shadow: 0 0 5px rgb(76, 109, 142),
+                            0 0 25px rgb(76, 109, 142),
+                            0 0 50px rgb(76, 109, 142),
+                            0 0 100px rgb(76, 109, 142);
                     }
                 </style>
 
@@ -101,8 +218,8 @@ use App\Models\User;
                             <button type="submit" class="search_icon"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
-                    
-                </form> 
+
+                </form>
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush">
@@ -168,8 +285,12 @@ use App\Models\User;
                                             <form action="{{url('/pets/'.$pet->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a href="{{url('/pets/'.$pet->id.'/edit')}}" class="btn btn-sm btn-danger">Editar</a>
-                                                <button type="submit" class="btn btn-sm btn-primary">Eliminar</button>
+                                                <a href="{{url('/pets/'.$pet->id.'/edit')}}"
+                                                    class="shadow__btn2" style="color:white;"><i
+                                                    class='fas fa-edit' ></i></a>
+
+                                                    <button type="submit" class="shadow__btn" role="button"><i
+                                                        class='fas fa-trash-alt' style="font-size:20px; "></i></button>
                                             </form>
 
                                         </td>
@@ -181,7 +302,7 @@ use App\Models\User;
                     </div>
                     <div class="card-body">
                         {{ $pets->links() }}
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
