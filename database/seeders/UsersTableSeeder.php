@@ -47,7 +47,7 @@ class UsersTableSeeder extends Seeder
 
         User::factory()
         ->Count(50)
-        ->state(['role' => 'cliente'])
+        ->state(['role' => 'Cliente'])
         ->create();
     }
 }

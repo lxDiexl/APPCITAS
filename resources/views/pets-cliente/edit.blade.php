@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
                 <div class="card-header pb-0">
                     <div class="row">
                         <div class="col-lg-6 col-7">
-                            <h3 style="letter-spacing: 3px;">Nueva Mascota</h3>
+                            <h3 style="letter-spacing: 3px;">Editar Mascota</h3>
 
                         </div>
                         {{-- <div class="col-lg-6 col-5 my-auto text-end">
@@ -30,8 +30,8 @@ use Illuminate\Support\Str;
                             </div>
                         </div> --}}
                         <div class="col-lg-6 col-5 my-auto text-end">
-                            <a href="{{ url('/pets') }}" class="btn btn-sm btn-info"><i
-                                    class="fas fa-arrow-alt-circle-left" style="font-size:15px;"></i> Regresar</a>
+                            <a href="{{ url('/pets-cliente') }}" class="btn btn-sm btn-info"><i class="fas fa-arrow-alt-circle-left"
+                                    style="font-size:15px;"></i> Regresar</a>
                         </div>
                     </div>
 
@@ -42,13 +42,14 @@ use Illuminate\Support\Str;
                         @foreach ($errors->all() as $error)
                             <div class="alert alert-danger" role="alert" style="color:white;">
                                 <i style="color:white;" class="fas fa-exclamation-triangle"></i>
-                                <strong style="color:white;">Por favor!</strong> {{$error}}
+                                <strong style="color:white;">Por favor!</strong> {{ $error }}
                             </div>
                         @endforeach
                     @endif
-                    <form action="{{ url('/pets') }}" method="POST" class="form"
+                    <form action="{{ url('/pets-cliente/' . $pet->id) }}" method="POST" class="form"
                         style="display:flex; flex-direction:column;">
                         @csrf
+                        @method('PUT')
                         <div class="form-group">
                             <label for="name">Nombre de la mascota</label>
                             <input
@@ -60,7 +61,7 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="name" class="form-control" value="{{old('name')}}">
+                                type="text" name="name" class="form-control" value="{{ old('name', $pet->name) }}">
                         </div>
                         <div class="form-group">
                             <label for="especie">Especie</label>
@@ -73,7 +74,8 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="especie" class="form-control" value="{{old('especie')}}">
+                                type="text" name="especie" class="form-control"
+                                value="{{ old('especie', $pet->especie) }}">
                         </div>
                         <div class="form-group">
                             <label for="raza">Raza</label>
@@ -86,7 +88,7 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="raza" class="form-control" value="{{old('raza')}}" >
+                                type="text" name="raza" class="form-control" value="{{ old('raza', $pet->raza) }}">
                         </div>
                         <div class="form-group">
                             <label for="edad">Edad</label>
@@ -99,8 +101,36 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="number" name="edad" class="form-control" value="{{old('edad')}}">
+                                type="number" name="edad" class="form-control" value="{{ old('edad', $pet->edad) }}">
                         </div>
+                        {{-- <div class="form-group">
+                            <label for="genero">Género</label>
+                            <input
+                                style="padding: 0.5rem;
+                            border-radius: 0.25rem;
+                            border: 1px solid #ced4da;
+                            background-color: #fff;
+                            width: 100%;
+                            font-size: 1rem;
+                            line-height: 1.5;
+                            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
+                                type="text" name="genero" class="form-control" value="{{old('genero',$pet->genero)}}">
+
+                                <form>
+                                    <div class="custom-control custom-radio pmd-radio custom-control-inline">
+                                          <input type="radio" id="customRadioInline1" name="customRadio" class="custom-control-input">
+                                          <label class="custom-control-label pmd-radio-ripple-effect" for="customRadioInline1">1</label>
+                                    </div>
+                                    <div class="custom-control custom-radio pmd-radio custom-control-inline">
+                                          <input type="radio" id="customRadioInline2" name="customRadio" class="custom-control-input">
+                                          <label class="custom-control-label pmd-radio-ripple-effect" for="customRadioInline2">2</label>
+                                    </div>
+                                    <div class="custom-control custom-radio pmd-radio custom-control-inline">
+                                          <input type="radio" id="customRadioInline3" name="customRadio" class="custom-control-input">
+                                          <label class="custom-control-label" for="customRadioInline3">3</label>
+                                    </div>
+                                </form>
+                        </div> --}}
                         <div class="form-group">
                             <label for="genero">Género</label>
                             <input
@@ -113,7 +143,7 @@ use Illuminate\Support\Str;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
                                 type="text" name="genero" class="form-control" id="genero-input"
-                                value="{{ old('genero') }}">
+                                value="{{ old('genero', $pet->genero) }}">
 
                             <div class="radio-inline"
                                 style="display: flex;
@@ -165,7 +195,7 @@ use Illuminate\Support\Str;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
                                 type="text" name="tamaño" class="form-control" id="tamaño-input"
-                                value="{{ old('tamaño') }}">
+                                value="{{ old('tamaño', $pet->tamaño) }}">
 
                             <div class="radio-inline"
                                 style="display: flex;
@@ -227,7 +257,8 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="peso" class="form-control" value="{{old('peso')}}">
+                                type="text" name="peso" class="form-control"
+                                value="{{ old('peso', $pet->peso) }}">
                         </div>
 
                         <div class="form-group">
@@ -241,15 +272,29 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="id_user" class="form-control" value="{{old('id_user')}}">
+                                type="text" name="id_user" class="form-control"
+                                value="{{ old('id_user', $pet->id_user) }}">
                         </div>
+
+                         {{-- <div class="form-group">
+                            <label for="id_user">Propietario</label>
+                            <select name="id_user" class="form-control">
+                                <option value="">Seleccionar propietario</option>
+                                @foreach($clientes as $cliente)
+                                <option value="{{ $cliente->id }}" {{ old('id_user', $pet->id_user) == $cliente->id ? 'selected' : '' }}>
+                                    {{ $cliente->nombre }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                         --}}
 
                         <div class="d-flex justify-content-end"
                             style="display: block;
                         margin-top: 20px;">
                             <button style="
                                 color: #fff;" type="submit"
-                                class="btn btn-primary">Crear Mascota</button>
+                                class="btn btn-primary">Guardar</button>
                         </div>
                     </form>
                 </div>

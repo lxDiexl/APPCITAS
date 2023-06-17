@@ -7,7 +7,7 @@
                 <div class="card-header pb-0">
                     <div class="row">
                         <div class="col-lg-6 col-7">
-                            <h2 style="letter-spacing: 3px;">Cita #{{$appointment->id}}</h2>
+                            <h2 style="letter-spacing: 3px;">Cita #{{ $appointment->id }}</h2>
 
                         </div>
                         <div class="col-lg-6 col-5 my-auto text-end">
@@ -18,8 +18,8 @@
 
                 </div>
                 <style>
-                    #negrita{
-                        color:black;
+                    #negrita {
+                        color: black;
                     }
 
                     .searchbar {
@@ -191,37 +191,78 @@
                 <div class="card-body">
                     <ul>
                         <dd>
-                            <strong>Fecha: </strong>{{$appointment->scheduled_date}}
+                            <strong>Fecha: </strong>{{ $appointment->scheduled_date }}
                         </dd>
                         <dd>
-                            <strong>Hora de atención: </strong>{{$appointment->scheduled_time12}}
+                            <strong>Hora de atención: </strong>{{ $appointment->scheduled_time12 }}
+                        </dd>
+                        @if ($role == 'Cliente' || $role == 'Admin')
+                            <dd>
+                                <strong>Veterinario: </strong>{{ $appointment->doctor->name }}
+                            </dd>
+                        @endif
+                        @if ($role == 'Medico' || $role == 'Admin')
+                            <dd>
+                                <strong>Cliente: </strong>{{ $appointment->patient->name }}
+                            </dd>
+                        @endif
+                        <dd>
+                            <strong>Especialidad: </strong>{{ $appointment->specialty->name }}
                         </dd>
                         <dd>
-                            <strong>Veterinario: </strong>{{$appointment->doctor->name }}
+                            <strong>Tipo consulta: </strong>{{ $appointment->type }}
                         </dd>
                         <dd>
-                            <strong>Especialidad: </strong>{{$appointment->specialty->name}}
+                            <strong>Estado: </strong>
+                            @if ($appointment->status == 'Cancelada')
+                                <span class="badge" style="color:red; ">Cancelada</span>
+                            @else
+                                <span class="badge" style="color:#41ED33; ">{{ $appointment->status }}</span>
+                            @endif
                         </dd>
                         <dd>
-                            <strong>Tipo consulta: </strong>{{$appointment->type}}
-                        </dd>
-                        <dd>
-                            <strong>Estado: </strong>{{$appointment->status}}
-                        </dd>
-                        <dd>
-                            <strong>Síntomas: </strong>{{$appointment->description}}
+                            <strong>Síntomas: </strong>{{ $appointment->description }}
                         </dd>
                     </ul>
                 </div>
+                @if ($appointment->status == 'Cancelada')
+                    <div class="card-body">
+                        <div class="alert text-primary" style="background: #BAA9E2">
+                            <h3>Detalles de la cancelación</h3>
+                            @if ($appointment->cancellation)
+                                <ul>
+                                    <li>
+                                        <strong>Fecha de cancelación</strong>
+                                        {{ $appointment->cancellation->created_at }}
+                                    </li>
+                                    <li>
+                                        <strong>La cita fue cancelada por: </strong>
+                                        {{ $appointment->cancellation->cancelled_by->name }}
+                                    </li>
+                                    <li>
+                                        <strong>Motivo de la cancelación: </strong>
+                                        {{ $appointment->cancellation->justification }}
+                                    </li>
+                                </ul>
+                            @else
+                                <ul>
+                                    <li>La cita fue cancelada antes de su confirmación</li>
+                                </ul>
+                            @endif
+
+
+                        </div>
+                    </div>
+                @endif
 
                 <!-- Fonts -->
 
 
-                    {{-- <div class="card-body">
+                {{-- <div class="card-body">
                         {{ $clientes->links() }}
                     </div> --}}
-                </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection

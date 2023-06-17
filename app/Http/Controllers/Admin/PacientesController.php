@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 
 class PacientesController extends Controller
 {
+    public function users(){
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
 
     public function index(Request $request)
     {

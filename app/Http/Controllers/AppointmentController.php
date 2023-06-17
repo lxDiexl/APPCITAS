@@ -15,21 +15,47 @@ class AppointmentController extends Controller
 
     public function index()
     {
+        $role = auth()->user()->role;
 
-        $confirmedAppointments = Appointment::all()
-            ->where('status', 'Confirmada')
-            ->where('patient_id', auth()->id());
+        if ($role == 'Admin') {
+            $confirmedAppointments = Appointment::all()
+                ->where('status', 'Confirmada');
 
-        $pendingAppointments = Appointment::all()
-            ->where('status', 'Reservada')
-            ->where('patient_id', auth()->id());
+            $pendingAppointments = Appointment::all()
+                ->where('status', 'Reservada');
 
-        $oldAppointments = Appointment::all()
-            ->whereIn('status', ['Atentida', 'Cancelada'])
-            ->where('patient_id', auth()->id());
+            $oldAppointments = Appointment::all()
+                ->whereIn('status', ['Atentida', 'Cancelada']);
+        } elseif ($role == 'Medico') {
+            //veterinarios
+            $confirmedAppointments = Appointment::all()
+                ->where('status', 'Confirmada')
+                ->where('doctor_id', auth()->id());
+
+            $pendingAppointments = Appointment::all()
+                ->where('status', 'Reservada')
+                ->where('doctor_id', auth()->id());
+
+            $oldAppointments = Appointment::all()
+                ->whereIn('status', ['Atentida', 'Cancelada'])
+                ->where('doctor_id', auth()->id());
+        } else if ($role == 'Cliente') {
+            //clientes
+            $confirmedAppointments = Appointment::all()
+                ->where('status', 'Confirmada')
+                ->where('patient_id', auth()->id());
+
+            $pendingAppointments = Appointment::all()
+                ->where('status', 'Reservada')
+                ->where('patient_id', auth()->id());
+
+            $oldAppointments = Appointment::all()
+                ->whereIn('status', ['Atentida', 'Cancelada'])
+                ->where('patient_id', auth()->id());
+        }
 
 
-        return view('appointments.index', compact('confirmedAppointments', 'pendingAppointments', 'oldAppointments'));
+        return view('appointments.index', compact('confirmedAppointments', 'pendingAppointments', 'oldAppointments', 'role'));
     }
 
 
@@ -122,7 +148,7 @@ class AppointmentController extends Controller
         Appointment::create($data);
 
         $notification = 'La cita se ha realizado correctamente';
-        return back()->with(compact('notification'));
+        return redirect('/miscitas')->with(compact('notification'));
     }
 
     public function cancel(Appointment $appointment, Request $request)
@@ -131,7 +157,7 @@ class AppointmentController extends Controller
         if ($request->has('justification')) {
             $cancellation = new CancelledAppointment();
             $cancellation->justification = $request->input('justification');
-            $cancellation->cancelled_by = auth()->id();
+            $cancellation->cancelled_by_id = auth()->id();
 
             $appointment->cancellation()->save($cancellation);
         }
@@ -146,27 +172,42 @@ class AppointmentController extends Controller
     public function formCancel(Appointment $appointment)
     {
         if ($appointment->status == 'Confirmada') {
-            return view('appointments.cancel', compact('appointment'));
+
+            $role= auth()->user()->role;
+            return view('appointments.cancel', compact('appointment','role'));
         }
 
         return redirect(('/miscitas'));
     }
 
-    public function show(Appointment $appointment){
-        return view('appointments.show', compact('appointment'));
+    public function show(Appointment $appointment)
+    {
+        $role = auth()->user()->role;
+        return view('appointments.show', compact('appointment', 'role'));
     }
 
-    public function destroy(Appointment $appointment)
+    // public function destroy(Appointment $appointment)
+    // {
+    //     // Verificar si el usuario tiene permiso para eliminar la cita
+    //     // Aquí puedes agregar la lógica para verificar si el usuario actual tiene permiso para eliminar la cita.
+    //     // Por ejemplo, puedes comprobar si el usuario actual es el propietario de la cita o si tiene un determinado rol.
+
+    //     // Eliminar la cita
+    //     $appointment->delete();
+
+    //     $notification = 'La cita ha sido eliminada del historial correctamente.';
+    //     return redirect('miscitas')->with(compact('notification'));
+    // }
+
+    public function confirm(Appointment $appointment)
     {
-        // Verificar si el usuario tiene permiso para eliminar la cita
-        // Aquí puedes agregar la lógica para verificar si el usuario actual tiene permiso para eliminar la cita.
-        // Por ejemplo, puedes comprobar si el usuario actual es el propietario de la cita o si tiene un determinado rol.
 
-        // Eliminar la cita
-        $appointment->delete();
+        $appointment->status = 'Confirmada';
+        $appointment->save();
+        $notification = 'La cita se ha confirmada correctamente';
 
-        $notification = 'La cita ha sido eliminada del historial correctamente.';
         return redirect('miscitas')->with(compact('notification'));
     }
+
 
 }

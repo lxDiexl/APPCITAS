@@ -46,7 +46,7 @@
                       <a class="nav-link d-flex align-items-center me-2 active" aria-current="page"
                           href="#acercade">
                           <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
-                          Acerca de 
+                          Acerca de
                       </a>
                   </li>
                   <li class="nav-item">
@@ -110,7 +110,7 @@
           </div>
 
           </div>
-        </nav> 
+        </nav>
         <!-- End Navbar -->
       </div>
     </div>

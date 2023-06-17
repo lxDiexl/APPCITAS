@@ -30,7 +30,7 @@ use Illuminate\Support\Str;
                             </div>
                         </div> --}}
                         <div class="col-lg-6 col-5 my-auto text-end">
-                            <a href="{{ url('/pets') }}" class="btn btn-sm btn-info"><i
+                            <a href="{{ url('/pets-cliente') }}" class="btn btn-sm btn-info"><i
                                     class="fas fa-arrow-alt-circle-left" style="font-size:15px;"></i> Regresar</a>
                         </div>
                     </div>
@@ -46,7 +46,7 @@ use Illuminate\Support\Str;
                             </div>
                         @endforeach
                     @endif
-                    <form action="{{ url('/pets') }}" method="POST" class="form"
+                    <form action="{{ url('/pets-cliente') }}" method="POST" class="form"
                         style="display:flex; flex-direction:column;">
                         @csrf
                         <div class="form-group">
@@ -230,19 +230,6 @@ use Illuminate\Support\Str;
                                 type="text" name="peso" class="form-control" value="{{old('peso')}}">
                         </div>
 
-                        <div class="form-group">
-                            <label for="id_user">Propietario</label>
-                            <input
-                                style="padding: 0.5rem;
-                            border-radius: 0.25rem;
-                            border: 1px solid #ced4da;
-                            background-color: #fff;
-                            width: 100%;
-                            font-size: 1rem;
-                            line-height: 1.5;
-                            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="id_user" class="form-control" value="{{old('id_user')}}">
-                        </div>
 
                         <div class="d-flex justify-content-end"
                             style="display: block;

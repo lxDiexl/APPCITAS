@@ -861,7 +861,7 @@
 
         #content-header {
             height: 1020px;
-            background: url(https://images3.alphacoders.com/216/216167.jpg) no-repeat center;
+            background: url(https://img.freepik.com/foto-gratis/retrato-grupo-adorables-cachorros_53876-64778.jpg?w=1800&t=st=1686976537~exp=1686977137~hmac=03a1486245cefc9385921ac78b36fbaddfbfe19dd913a09e05e7cf40e601bc5e) no-repeat center;
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
@@ -1293,8 +1293,8 @@ p {
     </div>
 
     <header id="content-header">
-        <h2 id="title" style="font-size:100px; ">Social Pet's</h2>
-        <p id="lorem" style="font-size:20px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+        <h2 id="title" style="font-size:100px; color:black">Social Pet's</h2>
+        <p id="lorem" style="font-size:20px; color:black">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Incidunt ad vitae iste distinctio natus a culpa excepturi
             cum, nostrum, libero error anLorem ipsum dolor sit amet, consectetur adipisicing elit.
             Incidunt ad vitae iste distinctio natus a culpa excepturi

@@ -147,16 +147,13 @@
                     </div>
                     {{-- <form id="searchForm" action="{{ url('/medicos') }}" method="GET" style="margin-left: 30px;">
                         <div class="d-flex justify-content-right h-100">
-                            <div class="searchbar">
+                            <div class="searchbar"></div>
                                 <input class="search_input" type="text" name="search" placeholder="Buscar Medicos">
                                 <button type="submit" class="search_icon"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
 
                     </form> --}}
-                    <link rel="stylesheet"
-                     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
                     <div class="card-body px-5 pb-2">
                         <div class="table-responsive">

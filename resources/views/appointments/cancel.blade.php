@@ -18,8 +18,8 @@
 
                 </div>
                 <style>
-                    #negrita{
-                        color:black;
+                    #negrita {
+                        color: black;
                     }
 
                     .searchbar {
@@ -195,31 +195,54 @@
                         </div>
                     @endif
 
+
+
                     <div class="card-body px-0 pb-2">
-                        <p style="color:black;">Se cancelará tu cita reservada con el veterinario <b id="negrita">{{$appointment->doctor->name}}</b>
+                        @if ($role == 'Cliente')
+                            <p style="color:black;">Se cancelará tu cita reservada con el veterinario <b
+                                    id="negrita">{{ $appointment->doctor->name }}</b>
 
-                            (especialidad: <b id="negrita">{{$appointment->specialty->name}}</b>) para el día <b id="negrita">{{$appointment->scheduled_date}}</b>.</p>
+                                (especialidad: <b id="negrita">{{ $appointment->specialty->name }}</b>) para el día <b
+                                    id="negrita">{{ $appointment->scheduled_date }}</b>.</p>
+                        @elseif($role == 'Medico')
+                            <p style="color:black;">Se cancelará la cita reservada del paciente <b
+                                    id="negrita">{{ $appointment->patient->name }}</b>
 
-                            <form action="{{url('/miscitas/'.$appointment->id.'/cancel')}}" method="POST">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="justification">Ponga los motivos de la cancelación</label>
-                                    <textarea name="justification" id="justification" rows ="3" class="form-control" style="border: 1px solid black" required></textarea>
-                                </div>
-                                <br>
-                                <button class="btn btn-danger" type="submit">Cancelar Cita</button>
-                            </form>
+                                (especialidad: <b id="negrita">{{ $appointment->specialty->name }}</b>) para el día <b
+                                    id="negrita">{{ $appointment->scheduled_date }}</b>.
+                                <b id="negrita">{{ $appointment->scheduled_time12 }}</b>.
+                            </p>
+                        @else
+                            <p style="color:black;">Se cancelará la cita reservada del paciente <b
+                                    id="negrita">{{ $appointment->patient->name }} que sera atentidido por el
+                                    veterinario</b>
+                                <b>{{ $appointment->doctor->name }}</b>
+                                (especialidad: <b id="negrita">{{ $appointment->specialty->name }}</b>) para el día <b
+                                    id="negrita">{{ $appointment->scheduled_date }}</b>.
+                                <b id="negrita">{{ $appointment->scheduled_time12 }}</b>.
+                            </p>
+                        @endif
+                        <form action="{{ url('/miscitas/' . $appointment->id . '/cancel') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="justification">Ponga los motivos de la cancelación</label>
+                                <textarea name="justification" id="justification" rows="3" class="form-control" style="border: 1px solid black"
+                                    required></textarea>
+                            </div>
+                            <br>
+                            <button class="btn btn-danger" type="submit">Cancelar Cita</button>
+                        </form>
                     </div>
                 </div>
 
                 <!-- Fonts -->
 
 
-                    {{-- <div class="card-body">
+                {{-- <div class="card-body">
                         {{ $clientes->links() }}
                     </div> --}}
-                </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
