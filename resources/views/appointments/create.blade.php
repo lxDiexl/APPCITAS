@@ -347,7 +347,7 @@ use Illuminate\Support\Str;
                         </div>
                 </div>
 
-                <div class="d-flex justify-content-end" style="display: block;
+                <div class="d-flex justify-content-center" style="display: block;
                         margin-top: 20px;">
                     <button style="
                                 color: #fff;" type="submit"

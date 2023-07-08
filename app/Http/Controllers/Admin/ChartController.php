@@ -31,14 +31,14 @@ class ChartController extends Controller
         }
 
 
-        return view('charts.appointments',compact('counts'));
+        return view('charts.appointments', compact('counts'));
     }
 
     public function doctors()
     {
-        $now= Carbon::now();
-        $end= $now->format('Y-m-d');
-        $start=$now->subYear()->format('Y-m-d');
+        $now = Carbon::now();
+        $end = $now->format('Y-m-d');
+        $start = $now->subYear()->format('Y-m-d');
 
         $monthCounts = Appointment::select(
 
@@ -56,34 +56,37 @@ class ChartController extends Controller
         }
 
 
-        return view('charts.doctors', compact('end','start'));
+        return view('charts.doctors', compact('end', 'start'));
     }
 
-    public function doctorsJson(Request $request)  {
+    public function doctorsJson(Request $request)
+    {
 
         $start=$request->input('start');
         $end=$request->input('end');
 
-        $doctors= User::doctors()
-        ->select('name')
-        ->withCount(['attendedAppointments'=>function($query) use ($start, $end){
-            $query->whereBetween('scheduled_date', [$start,$end]);
-        },
-        'cancellAppointments'=>function($query) use ($start, $end){
-            $query->whereBetween('scheduled_date', [$start,$end]);
-        }])
-        ->orderBy('attended_appointments_count','desc')
-        ->take(5)
-        ->get();
+        $doctors = User::doctors()
+            ->select('name')
+            ->withCount(['attendedAppointments' => function($query) use ($start, $end){
+                 $query->whereBetween('scheduled_date', [$start, $end]);
+             },
+             'cancellAppointments'=>function($query) use ($start, $end){
+             $query->whereBetween('scheduled_date', [$start, $end]);
+            }])
 
-        $data=[];
-        $data['categories']=$doctors->pluck('name');
+            ->orderBy('attended_Appointments_count', 'desc')
+            ->take(5)
+            ->get();
 
-        $series=[];
-        $series1 ['name']='Citas atendidas';
-        $series1['data']=$doctors->pluck('attended_appointments_count');
-        $series2 ['name']='Citas canceladas';
-        $series2 ['data']=$doctors->pluck('cancell_appointments_count');
+        $data = [];
+        $data['categories'] = $doctors->pluck('name');
+
+
+        $series = [];
+        $series1['name'] = 'Citas atendidas';
+        $series1['data'] = $doctors->pluck('attended_appointments_count');
+        $series2['name'] = 'Citas canceladas';
+        $series2['data'] = $doctors->pluck('cancell_appointments_count');
 
         $series[]=$series1;
         $series[]=$series2;
@@ -93,7 +96,7 @@ class ChartController extends Controller
         return $data;
     }
     public function showChart()
-{
-    return view('chart');
-}
+    {
+        return view('chart');
+    }
 }

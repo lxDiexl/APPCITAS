@@ -213,14 +213,14 @@
                     });
                 </script>
                 <div class="card-body">
-                    <script src="/assets-old/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
-                    <div class="input-daterange datepicker row align-items-center">
+
+                    <div class="input-daterange datepicker row align-items-center" data-data-format="yyyy-mm-dd">
                         <div class="col">
                             <div class="form-group">
                                 <div class="input-group">
                                     <h3 style="padding-right: 5%">Fecha inicio </h3>
-                                    <input placeholder="Fecha de inicio" type="date" id="date"
+                                    <input placeholder="Fecha de inicio" type="date" id="startDate"
                                         value="{{ $start }}" style="color:black;">
                                 </div>
                             </div>
@@ -229,13 +229,13 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <h3 style="padding-right: 5%">Fecha fin </h3>
-                                    <input placeholder="Fecha fin" type="date" id="date" value="{{ $end }}"
+                                    <input placeholder="Fecha fin" type="date" id="endDate" value="{{ $end }}"
                                         style="color:black;">
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    <br>
                     <div id="container">
 
                     </div>
@@ -246,6 +246,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('scripts')
@@ -253,84 +254,6 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            Highcharts.chart('container', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Desempeño medico'
-                },
-
-                xAxis: {
-                    categories: [],
-                    crosshair: true
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'Citas atentidas'
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<span style="font-size:10px">{point.key}</span> <
-                    table > ',
-                    pointFormat: '<tr> <
-                    td style = "color:{series.color};padding:0" > {
-                        series.name
-                    }: < /td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td> < /
-                    tr > ',
-                    footerFormat: '</table>',
-                    shared: true,
-                    useHTML: true
-                },
-                plotOptions: {
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
-                    }
-                },
-                series: []
-            });
-        });
-    </script>
-    <script>
-        let $start, $end;
-
-        function fetchData() {
-            const starDate = $start.val();
-            const endDate = $end.val();
-
-            const url = `/reportes/doctors/columns/data?start=${starDate}&end=${endDate}`;
-
-            fetch(url)
-                .then(function(response) {
-                    return response.json();
-                })
-                .then(function(myJson) {
-                    chart.xAxis[0].setCategories(myJson.categories);
-
-                    if (chart.series.length > 0) {
-                        chart.series[1].remove();
-                        chart.series[0].remove();
-                    }
-
-                    chart.addSeries(myJson.series[0]);
-                    chart.addSeries(myJson.series[1]);
-                });
-        }
-
-        $(function() {
-            $start = $('#starDate');
-            $end = $('#endDate');
-            fetchData();
-
-            $start.change(fetchData);
-            $end.change(fetchData);
-        });
-    </script>
-
+    <script src="/assets-old/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="{{asset('js/charts/doctors.js')}}" ></script>
 @endsection

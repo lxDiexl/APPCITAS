@@ -18,7 +18,7 @@
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('css/material-dashboard.css?v=3.0.0') }}" rel="stylesheet" />
 
@@ -105,14 +105,14 @@
             </div>
         </nav>
         <!-- End Navbar -->
-        <div class="container-fluid py-4">
+        <div class="container-fluid">
             @yield('content')
             @include('includes.panel.footer')
         </div>
     </main>
     <div class="fixed-plugin">
         <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
-            <i class="material-icons py-2">settings</i>
+            <i class='far fa-sun'></i>
         </a>
         <div class="card shadow-lg">
             <div class="card-header pb-0 pt-3">

@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
                 <div class="card-header pb-0">
                     <div class="row">
                         <div class="col-lg-6 col-7">
-                            <h3 style="letter-spacing: 3px;">Editar Veterinario</h3>
+                            <h3 style="letter-spacing: 3px;">Nueva Mascota</h3>
 
                         </div>
                         {{-- <div class="col-lg-6 col-5 my-auto text-end">
@@ -30,7 +30,7 @@ use Illuminate\Support\Str;
                             </div>
                         </div> --}}
                         <div class="col-lg-6 col-5 my-auto text-end">
-                            <a href="{{ url('/medicos') }}" class="btn btn-sm btn-info"><i
+                            <a href="{{ url('/adoption') }}" class="btn btn-sm btn-info"><i
                                     class="fas fa-arrow-alt-circle-left" style="font-size:15px;"></i> Regresar</a>
                         </div>
                     </div>
@@ -42,16 +42,16 @@ use Illuminate\Support\Str;
                         @foreach ($errors->all() as $error)
                             <div class="alert alert-danger" role="alert" style="color:white;">
                                 <i style="color:white;" class="fas fa-exclamation-triangle"></i>
-                                <strong style="color:white;">Por favor!</strong> {{ $error }}
+                                <strong style="color:white;">Por favor!</strong> {{$error}}
                             </div>
                         @endforeach
                     @endif
-                    <form action="{{ url('/medicos/' . $doctor->id) }}" method="POST" class="form"
+                    <form action="{{ url('/adoption') }}" method="POST" class="form"
                         style="display:flex; flex-direction:column;">
                         @csrf
-                        @method('PUT')
+
                         <div class="form-group">
-                            <label for="name">Nombre del medico</label>
+                            <label for="especie">Especie</label>
                             <input
                                 style="padding: 0.5rem;
                             border-radius: 0.25rem;
@@ -61,10 +61,10 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="name" class="form-control" value="{{ old('name', $doctor->name) }}">
+                                type="text" name="especie" class="form-control" value="{{old('especie')}}">
                         </div>
                         <div class="form-group">
-                            <label for="lastname">Apellidos</label>
+                            <label for="raza">Raza</label>
                             <input
                                 style="padding: 0.5rem;
                             border-radius: 0.25rem;
@@ -74,45 +74,10 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="lastname" class="form-control"
-                                value="{{ old('lastname', $doctor->lastname) }}">
+                                type="text" name="raza" class="form-control" value="{{old('raza')}}" >
                         </div>
                         <div class="form-group">
-
-
-                            <label for="specialties">Especialidades</label>
-
-                            <!--LINKS -->
-                            <link rel="stylesheet"
-                                href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-                            <link rel="stylesheet"
-                                href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-                            <!-- SCRIPTS -->
-                            <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-                            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-                                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-                            </script>
-                            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
-
-                            <script>
-                                $(document).ready(() => {
-                                    $('#specialties').selectpicker('val', @json($specialty_ids));
-                                });
-                            </script>
-
-
-                            <select name="specialties[]" id="specialties" class="form-control selectpicker"
-                                data-style="btn-dark" title="Seleccionar especialidades" multiple required>
-                                @foreach ($specialties as $especialidad)
-                                    <option value="{{ $especialidad->id }}">{{ $especialidad->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="phone">Teléfono</label>
+                            <label for="edad">Edad</label>
                             <input
                                 style="padding: 0.5rem;
                             border-radius: 0.25rem;
@@ -122,11 +87,12 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="phone" class="form-control" value="{{ old('phone', $doctor->phone) }}"
-                                minlength="9" maxlength="9">
+                                type="number" name="edad" class="form-control" value="{{old('edad')}}">
                         </div>
+
+
                         <div class="form-group">
-                            <label for="location">Dirección</label>
+                            <label for="tamaño">Tamaño</label>
                             <input
                                 style="padding: 0.5rem;
                             border-radius: 0.25rem;
@@ -136,11 +102,60 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="location" class="form-control"
-                                value="{{ old('location', $doctor->location) }}">
+                                type="text" name="tamanio" class="form-control" id="tamaño-input"
+                                value="{{ old('tamanio') }}">
+
+                            <div class="radio-inline"
+                                style="display: flex;
+                            align-items: center;">
+                                <div class="custom-control custom-radio pmd-radio custom-control-inline">
+                                    <input type="radio" id="pequeño-radio" name="tamaño-radio"
+                                        class="custom-control-input" value="Pequeño">
+                                    <label class="custom-control-label pmd-radio-ripple-effect" style="margin-right: 10px;"
+                                        for="pequeño-radio">Pequeño</label>
+                                </div>
+
+                                <div class="custom-control custom-radio pmd-radio custom-control-inline">
+                                    <input type="radio" id="mediano-radio" name="tamaño-radio"
+                                        class="custom-control-input" value="Mediano">
+                                    <label class="custom-control-label pmd-radio-ripple-effect"
+                                        style="margin-right: 10px;" for="mediano-radio">Mediano</label>
+                                </div>
+
+                                <div class="custom-control custom-radio pmd-radio custom-control-inline">
+                                    <input type="radio" id="grande-radio" name="tamaño-radio"
+                                        class="custom-control-input" value="Grande">
+                                    <label class="custom-control-label pmd-radio-ripple-effect"
+                                        style="margin-right: 10px;" for="grande-radio">Grande</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
+                        <script>
+                            const tamañoInput = document.getElementById('tamaño-input');
+                            const pequeñoRadio = document.getElementById('pequeño-radio');
+                            const medianoRadio = document.getElementById('mediano-radio');
+                            const grandeRadio = document.getElementById('grande-radio');
+
+                            pequeñoRadio.addEventListener('change', function() {
+                                if (this.checked) {
+                                    tamañoInput.value = 'Pequeño';
+                                }
+                            });
+
+                            medianoRadio.addEventListener('change', function() {
+                                if (this.checked) {
+                                    tamañoInput.value = 'Mediano';
+                                }
+                            });
+
+                            grandeRadio.addEventListener('change', function() {
+                                if (this.checked) {
+                                    tamañoInput.value = 'Grande';
+                                }
+                            });
+                        </script>
+                        {{-- <div class="form-group">
+                            <label for="fotografia">Fotografia</label>
                             <input
                                 style="padding: 0.5rem;
                             border-radius: 0.25rem;
@@ -150,29 +165,16 @@ use Illuminate\Support\Str;
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="email" name="email" class="form-control"
-                                value="{{ old('email', $doctor->email) }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Contraseña</label>
-                            <input
-                                style="padding: 0.5rem;
-                            border-radius: 0.25rem;
-                            border: 1px solid #ced4da;
-                            background-color: #fff;
-                            width: 100%;
-                            font-size: 1rem;
-                            line-height: 1.5;
-                            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="password" class="form-control">
-                            <small class="text-warning">Solo llena el campo si desea cambiar la contraseña</small>
-                        </div>
+                                type="text" name="fotografia" class="form-control" value="{{old('imagen')}}">
+                        </div> --}}
+
+
                         <div class="d-flex justify-content-end"
                             style="display: block;
                         margin-top: 20px;">
                             <button style="
                                 color: #fff;" type="submit"
-                                class="btn btn-primary">Guardar</button>
+                                class="btn btn-primary">Crear Mascota</button>
                         </div>
                     </form>
                 </div>

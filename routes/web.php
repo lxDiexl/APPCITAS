@@ -50,14 +50,23 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::put('/pets/{pet}', [App\Http\Controllers\Admin\PetsController::class, 'update']);
     Route::delete('/pets/{pet}', [App\Http\Controllers\Admin\PetsController::class, 'destroy']);
 
+    //rutas adopcion
 
+    Route::get('/adoption', [App\Http\Controllers\Admin\AdoptionController::class, 'index']);
+    Route::get('/adoption/create', [App\Http\Controllers\Admin\AdoptionController::class, 'create']);
+    Route::get('/adoption/{pet}/edit', [App\Http\Controllers\Admin\AdoptionController::class, 'edit']);
+    Route::post('/adoption', [App\Http\Controllers\Admin\AdoptionController::class, 'sendData']);
+    Route::post('/adoptions', [App\Http\Controllers\Admin\AdoptionController::class, 'store']);
+
+    Route::put('/adoption/{pet}', [App\Http\Controllers\Admin\AdoptionController::class, 'update']);
+    Route::delete('/adoption/{pet}', [App\Http\Controllers\Admin\AdoptionController::class, 'destroy']);
 
 
 
     //rutas reportes
     Route::get('/reportes/citas/line', [App\Http\Controllers\Admin\ChartController::class, 'appointments']);
-    Route::get('/reportes/doctors/columns', [App\Http\Controllers\Admin\ChartController::class, 'doctors']);
-    Route::get('/reportes/doctors/columns/data', [App\Http\Controllers\Admin\ChartController::class, 'doctorsJson']);
+    Route::get('/reportes/doctors/column', [App\Http\Controllers\Admin\ChartController::class, 'doctors']);
+    Route::get('/reportes/doctors/column/data', [App\Http\Controllers\Admin\ChartController::class, 'doctorsJson']);
 });
 
 
@@ -88,4 +97,7 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/pets-cliente/{pet}', [App\Http\Controllers\PetsclienteController::class, 'update']);
     Route::delete('/pets-cliente/{pet}', [App\Http\Controllers\PetsclienteController::class, 'destroy']);
+
+    Route::get('/profile', [App\Http\Controllers\UserController::class, 'edit']);
+    Route::post('/profile', [App\Http\Controllers\UserController::class, 'update']);
 });

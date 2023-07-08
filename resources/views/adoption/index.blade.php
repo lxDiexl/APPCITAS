@@ -1,3 +1,8 @@
+<?php
+use App\Models\User;
+
+?>
+
 @extends('layouts.panel')
 
 @section('content')
@@ -7,32 +12,17 @@
                 <div class="card-header pb-0">
                     <div class="row">
                         <div class="col-lg-6 col-7">
-                            <h2 style="letter-spacing: 3px;">VETERINARIOS</h2>
+                            <h2 style="letter-spacing: 3px;">MASCOTAS EN ADOPCIÓN</h2>
 
                         </div>
-                        {{-- <div class="col-lg-6 col-5 my-auto text-end">
-                            <div class="dropdown float-lg-end pe-4">
-                                <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <i class="fa fa-ellipsis-v text-secondary"></i>
-                                </a>
-                                <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
-                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
-                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a>
-                                    </li>
-                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else
-                                            here</a></li>
-                                </ul>
-                            </div>
-                        </div> --}}
+
                         <div class="col-lg-6 col-5 my-auto text-end">
-
-                            <a href="{{ url('/medicos/create') }}" class="button-85" role="button" style="color:white;">Nuevo Veterinario</a>
-
+                            <a href="{{ url('/adoption/create') }}" class="btn btn-sm btn-success">Nueva Mascota</a>
                         </div>
                     </div>
 
                 </div>
+
                 <style>
                     .searchbar {
                         margin-bottom: auto;
@@ -207,10 +197,10 @@
                         </div>
                     @endif
                 </div>
-                <form id="searchForm" action="{{ url('/medicos') }}" method="GET" style="margin-left: 30px;">
+               <form id="searchForm" action="{{ url('/adoption') }}" method="GET" style="margin-left: 30px;">
                     <div class="d-flex justify-content-right h-100">
                         <div class="searchbar">
-                            <input class="search_input" type="text" name="search" placeholder="Buscar Medicos">
+                            <input class="search_input" type="text" name="search" placeholder="Buscar Mascotas">
                             <button type="submit" class="search_icon"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
@@ -224,59 +214,56 @@
                                     <th
                                         class="text-uppercase text-secondary text-center text-sm text-xxs font-weight-bolder  ">
                                         ID</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
-                                        Nombres</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
-                                        Apellidos</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
-                                        Teléfono</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
-                                        Direccion</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
-                                        Email</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
+                                        Especie</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">
+                                        Raza</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
+                                        Edad</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
+                                        Tamaño</th>
+                                    {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
+                                        Fotografia</th> --}}
+
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
                                         Opciones</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($medicos as $medico)
+                                @foreach ($pets as $pet)
                                     <tr>
-                                        <td class="align-middle text-center text-sm" scope="row">
-                                            {{ $medico->id }}
+                                        <td class="align-middlemiddle text-center text-sm" scope="row">
+                                            {{ $pet->id }}
                                         </td>
                                         <td scope="row" class="text-center">
-                                            {{ $medico->name }}
-                                        </td>
-                                        <td scope="row" class="text-center" >
-                                            {{ $medico->lastname }}
+                                            {{ $pet->especie }}
                                         </td>
                                         <td scope="row" class="text-center">
-                                            {{ $medico->phone }}
+                                            {{ $pet->raza }}
                                         </td>
                                         <td scope="row" class="text-center">
-                                            {{ $medico->location }}
+                                            {{ $pet->edad }}
                                         </td>
+
                                         <td scope="row" class="text-center">
-                                            {{ $medico->email }}
+                                            {{ $pet->tamanio }}
                                         </td>
+                                        {{-- <td scope="row" class="text-center">
+                                            {{ $pet->imagen }}
+                                        </td> --}}
+
                                         <td class="align-middle text-center text-sm">
 
-                                            <form action="{{ url('/medicos/' . $medico->id) }}" method="POST">
+                                            <form action="{{url('/adoption/'.$pet->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-
-                                                <a href="{{ url('/medicos/' . $medico->id . '/edit') }}"  class="shadow__btn2" style="color:white;"><i
+                                                <a href="{{url('/adoption/'.$pet->id.'/edit')}}"
+                                                    class="shadow__btn2" style="color:white;"><i
                                                     class='fas fa-edit' ></i></a>
 
                                                     <button type="submit" class="shadow__btn" role="button"><i
                                                         class='fas fa-trash-alt' style="font-size:20px; "></i></button>
-                                            </form>
-
                                             </form>
 
                                         </td>
@@ -287,7 +274,7 @@
                         </table>
                     </div>
                     <div class="card-body">
-                        {{$medicos->links()}}
+                        {{ $pets->links() }}
                     </div>
                 </div>
             </div>

@@ -55,7 +55,7 @@
                             font-size: 1rem;
                             line-height: 1.5;
                             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"
-                                type="text" name="description" class="form-control" value="{{old('name')}}">
+                                type="text" name="description" class="form-control" value="{{old('desription')}}">
                         </div>
                         <div class="d-flex justify-content-end"
                             style="display: block;

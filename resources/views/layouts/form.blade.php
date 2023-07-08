@@ -44,37 +44,31 @@
               <ul class="navbar-nav mx-auto">
                   <li class="nav-item">
                       <a class="nav-link d-flex align-items-center me-2 active" aria-current="page"
-                          href="#acercade">
+                          href="/#acercade">
                           <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
                           Acerca de
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link me-2" href="../pages/profile.html">
-                          <i class="fa fa-user opacity-6 text-dark me-1"></i>
-                          Staff Medico
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link me-2" href="#servicios">
+                      <a class="nav-link me-2" href="/#servicios">
                           <i class="fas fa-hand-holding-medical opacity-6 text-dark me-1"></i>
                           Servicios
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link me-2" href="../pages/sign-up.html">
+                      <a class="nav-link me-2" href="/#especialidades">
                           <i class="fas fa-user-md opacity-6 text-dark me-1"></i>
                           Especialidades
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link me-2" href="../pages/sign-up.html">
+                      <a class="nav-link me-2" href="/#redes">
                           <i class="fas fa-bone opacity-6 text-dark me-1"></i>
                           Nuestras redes
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link me-2" href="../pages/sign-in.html">
+                      <a class="nav-link me-2" href="/#contacto">
 
                           <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
                           Contacto

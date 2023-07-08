@@ -2,18 +2,18 @@
     <div class=" dropdown-header noti-title">
         <h6 class="text-overflow m-0"> Bienvenido!</h6>
     </div>
-    <a href="#" class= "dropdown-item" >
+    <a href="/profile" class= "dropdown-item" >
       <i class="ni ni-single-02"></i>
       <span>Mi perfil</span>
     </a>
 
-    <a href="#" class= "dropdown-item">
-      <i class="ni ni-settings-gear-65" ></i>
-     <span>Configuracion</span>
+    <a href="/miscitas" class= "dropdown-item">
+      <i class="far fa-clock" ></i>
+     <span>Mis citas</span>
    </a>
-   <a href="#" class="dropdown-item">
+   <a href="reservarcitas/create" class="dropdown-item">
       <i class="ni ni-calendar-grid-58" ></i>
-     <span>Visitas </span>
+     <span>Reservar cita </span>
    </a>
    <a href="#" class="dropdown-item">
       <i class="ni ni-support-16"></i>
@@ -23,7 +23,7 @@
     <a href="{{route('logout')}}"
     onclick="event.preventDefault(); document.getElementById('formLogout').submit();" class="dropdown-item">
         <i class="ni ni-user-run"></i>
-        <span>Cerrar Sesion</span>  
+        <span>Cerrar Sesion</span>
         <form action="{{route('logout')}}" method="POST" style="display:none;" id="formLogout">@csrf</form>
     </a>
 </div>

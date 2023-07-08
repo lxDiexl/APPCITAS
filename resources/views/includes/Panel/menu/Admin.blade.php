@@ -19,7 +19,7 @@
         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="fas fa-stethoscope text-info"></i>
         </div>
-        <span class="nav-link-text ms-1">Médicos</span>
+        <span class="nav-link-text ms-1">Veterinarios</span>
     </a>
 </li>
 <li class="nav-item">
@@ -39,7 +39,7 @@
     </a>
 </li>
 <li class="nav-item">
-    <a id="dash" class="nav-link text-white " href="./pages/notifications.html">
+    <a id="dash" class="nav-link text-white " href="/adoption">
         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="fas fa-hotel text-blue"></i>
         </div>
@@ -66,7 +66,7 @@
     </a>
 </li>
 <li class="nav-item">
-    <a id="dash" class="nav-link text-white " href="{{url('/reportes/doctors/columns')}}">
+    <a id="dash" class="nav-link text-white " href="{{url('/reportes/doctors/column')}}">
         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="ni ni-chart-bar-32 text-blue"></i>
         </div>
