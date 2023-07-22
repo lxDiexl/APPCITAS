@@ -195,20 +195,25 @@ use Illuminate\Support\Str;
 
                         <div class="form-group">
                             <label for="name">Nombre completo</label>
-                           <input name="name" id="name" type="text" class="form-control" value="{{old('name',$user->name)}}" style="border: 1px solid black" required></input>
+                           <input name="name" id="name" type="text" class="form-control" value="{{old('name',$user->name)}}" style="border: 1px solid black" required>
                         </div>
                         <div class="form-group">
                             <label for="lastname">Apellido completo</label>
-                           <input name="lastname" id="lastname" type="text" class="form-control" value="{{old('lastname',$user->lastname)}}" style="border: 1px solid black" required></input>
+                           <input name="lastname" id="lastname" type="text" class="form-control" value="{{old('lastname',$user->lastname)}}" style="border: 1px solid black" required>
                         </div>
                         <div class="form-group">
                             <label for="phone">Número de telefono</label>
-                           <input name="phone" id="phone" type="text" class="form-control" minlength="9" maxlength="9" value="{{old('phone', $user->phone)}}" style="border: 1px solid black" required></input>
+                           <input name="phone" id="phone" type="text" class="form-control" minlength="9" maxlength="9" value="{{old('phone', $user->phone)}}" style="border: 1px solid black" required>
                         </div>
                         <div class="form-group">
                             <label for="location">Ubicación</label>
-                           <input name="location" id="location" type="text" class="form-control" value="{{old('location', $user->location)}}" style="border: 1px solid black" required></input>
+                           <input name="location" id="location" type="text" class="form-control" value="{{old('location', $user->location)}}" style="border: 1px solid black" required>
                         </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <input type="text" name="password" class="form-control" value="{{old('password', $user->password, Str::random(8))}}" style="border: 1px solid black" required>
+                        </div>
+
                 </div>
 
                 <div class="d-flex justify-content-center" style="display: block;

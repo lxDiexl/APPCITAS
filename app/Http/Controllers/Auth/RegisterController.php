@@ -68,7 +68,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $data['role'] = 'Cliente'; // Establecer el valor predeterminado del campo "role" como "cliente"
-    
+
         return User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
@@ -79,5 +79,5 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
-    
+
 }

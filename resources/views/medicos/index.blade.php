@@ -34,6 +34,7 @@
 
                 </div>
                 <style>
+
                     .searchbar {
                         margin-bottom: auto;
                         margin-top: auto;

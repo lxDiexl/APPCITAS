@@ -13,15 +13,22 @@ $user =auth()->user();
     }
 
 
-    public function update(Request $request){
-        $user =auth()->user();
-        $user->name = $request->name;
-        $user->lastname = $request->lastname;
-        $user->phone = $request->phone;
-        $user->location = $request->location;
-        $user->save();
+    public function update(Request $request)
+{
+    $user = auth()->user();
+    $user->name = $request->name;
+    $user->lastname = $request->lastname;
+    $user->phone = $request->phone;
+    $user->location = $request->location;
 
-        $notification='Los datos del perfil se han actualizado correctamente';
-        return back()->with(compact('notification'));
+    // Verificar si se proporcionó una nueva contraseña
+    if ($request->filled('password')) {
+        $user->password = bcrypt($request->password);
+    }
+
+    $user->save();
+
+    $notification = 'Los datos del perfil se han actualizado correctamente';
+    return back()->with(compact('notification'));
     }
 }

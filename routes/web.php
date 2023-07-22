@@ -24,6 +24,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/home-medico', [App\Http\Controllers\HomeController::class, 'index'])->name('home-medico');
 Route::get('/home-cliente', [App\Http\Controllers\HomeController::class, 'index'])->name('home-cliente');
 
+// Rutas para el restablecimiento de contraseña
+// Rutas para el restablecimiento de contraseña
+Route::get('password/reset', 'App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'App\Http\Controllers\Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'App\Http\Controllers\Auth\ResetPasswordController@reset')->name('password.update');
+
+
+
 Route::middleware(['auth', 'Admin'])->group(function () {
 
     //ruta especialidades
@@ -61,8 +70,6 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::put('/adoption/{pet}', [App\Http\Controllers\Admin\AdoptionController::class, 'update']);
     Route::delete('/adoption/{pet}', [App\Http\Controllers\Admin\AdoptionController::class, 'destroy']);
 
-
-
     //rutas reportes
     Route::get('/reportes/citas/line', [App\Http\Controllers\Admin\ChartController::class, 'appointments']);
     Route::get('/reportes/doctors/column', [App\Http\Controllers\Admin\ChartController::class, 'doctors']);
@@ -71,7 +78,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
 
 
 Route::middleware(['auth', 'Medico'])->group(function () {
-
+    //Ruta horarios
     Route::get('/horario', [App\Http\Controllers\Veterinario\HorarioController::class, 'edit']);
     Route::post('/horario', [App\Http\Controllers\Veterinario\HorarioController::class, 'store']);
 });

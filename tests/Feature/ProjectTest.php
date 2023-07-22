@@ -26,17 +26,17 @@ class ProjectTest extends TestCase
         $registroMal->assertStatus(302)->assertRedirect(route('register'));
 
         //registro correcto
-        // $registrobien = $this->post(route('register'), [
-        //     "name" => "Diego",
-        //     "lastname" => "Tasayco",
-        //     "phone" => "987654321",
-        //     "location" => "SJL",
-        //     "email" => "dita@gmail.com",
-        //     "password" => "diego",
-        //     "password_confirmation" => "diego"
-        //     ]);
-        // $registrobien->assertStatus(302)->assertRedirect(route('home'));
-        // $this->assertDatabaseHas('users', ['email' => "dita@gmail.com"]);
+            $registrobien = $this->post(route('register'), [
+                "name" => "Diego",
+                "lastname" => "Tasayco",
+                "phone" => "987654321",
+                "location" => "SJL",
+                "email" => "dita@gmail.com",
+                "password" => "diego",
+                "password_confirmation" => "diego"
+                ]);
+            $registrobien->assertStatus(302)->assertRedirect(route('home'));
+            $this->assertDatabaseHas('users', ['email' => "dita@gmail.com"]);
 
 
     }
@@ -76,17 +76,5 @@ class ProjectTest extends TestCase
         $this->assertDatabaseHas('users', ['email' => "Admi@gmail.com"]);
     }
 
-    // public function test_users_can_be_created(){
-    //     Artisan::call('migrate');
-    //     $nice=$this->post('/projects', ["name" => "Diego", "email" => "dix@gmail.com"]);
-    //     $nice->assertOk();
 
-    //     $this->assertCount(1,User::all());
-
-    //     $project = User::latest()->first();
-
-    //     //comparacion valores
-    //     $this->assertEquals($project->name, 'Diego');
-    //     $this->assertEquals($project->email, 'dix@gmail.com');
-    // }
 }
